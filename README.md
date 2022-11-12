@@ -13,9 +13,3 @@
 ~~~bash
     docker-compose down -v
 ~~~
-
-### Inactive delection protection
-
-~~~bash
-aws cognito-idp update-user-pool --user-pool-id **** --deletion-protection INACTIVE --auto-verified-attributes email
-~~~

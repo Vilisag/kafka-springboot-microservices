@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: statistic-service
+  labels:
+    app: statistic-service
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: statistic-service
+  template:
+    metadata:
+      labels:
+        app: statistic-service
+    spec:
+      containers:
+      - name: statistic-service
+        image: navuitag/statistic-service:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: statistic-service
+  labels:
+    app: statistic-service
+    tier: backend
+spec:
+  selector:
+    app: statistic-service
+  type: NodePort
+  ports:
+  - port: 9083
+    targetPort: 9083
+    nodePort: 30001

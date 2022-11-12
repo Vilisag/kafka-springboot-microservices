@@ -1,0 +1,22 @@
+POST  http://localhost:9083/api/v1/notifications/email
+Content-Type: application/json
+
+{
+    "from": "vu@zukitek.com",
+    "to": "vu@kentridgehealth.com",
+    "toName": "Vu Nguyen",
+    "subject": "Test notification service",
+    "content": "This is email which was sent from EUDA notification service"
+}
+###
+
+POST  https://m4gltekf3g.execute-api.ap-southeast-1.amazonaws.com/api/v1/notifications/email
+Content-Type: application/json
+
+{
+    "from": "vu@zukitek.com",
+    "to": "vu@kentridgehealth.com",
+    "toName": "Vu Nguyen",
+    "subject": "Test notification service",
+    "content": "This is email which was sent from EUDA notification service"
+}

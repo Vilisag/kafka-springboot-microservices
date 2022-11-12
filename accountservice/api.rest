@@ -1,0 +1,37 @@
+GET  http://localhost:9080/api/v1/accounts
+
+###
+
+GET  http://localhost:9080/api/v1/accounts/6361e710f3cc25733ea923dd
+
+###
+
+POST  http://localhost:9080/api/v1/accounts
+Content-Type: application/json
+
+{
+    "email": "kafkatesting@zukitek.com",
+    "password": "p@SSw0rd",
+    "name": "Kafka Testing",
+    "roles": [
+        "MEMBER"
+    ]
+}
+
+###
+
+PUT  http://localhost:9080/api/v1/accounts/636f5757785ae2458811079c
+Content-Type: application/json
+
+{
+    "email": "admin@zukitek.com",
+    "password": "p@SSw0rd123",
+    "name": "EUDA Testing",
+    "roles": [
+        "MEMBER"
+    ]
+}
+
+###
+
+DELETE http://localhost:9080/api/v1/accounts/636fa39437000d59f8b72f16

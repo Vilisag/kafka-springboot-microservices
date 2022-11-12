@@ -1,0 +1,27 @@
+GET  http://localhost:9081/api/v1/statistics
+
+###
+
+GET  http://localhost:9081/api/v1/statistics/6361e710f3cc25733ea923dd
+
+###
+
+POST  http://localhost:9081/api/v1/statistics
+Content-Type: application/json
+
+{
+    "message": "Create new account"
+}
+
+###
+
+PUT  http://localhost:9081/api/v1/statistics/6361e71ef3cc25733ea923de
+Content-Type: application/json
+
+{
+    "message": "Update an account"
+}
+
+###
+
+DELETE http://localhost:9081/api/v1/statistics/6361e71ef3cc25733ea923de

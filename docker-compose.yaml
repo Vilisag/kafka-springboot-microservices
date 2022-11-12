@@ -1,0 +1,53 @@
+version: '3'
+
+networks:
+  euda:
+    driver: bridge
+
+services:
+  zookeeper:
+    image: "bitnami/zookeeper:latest"
+    networks:
+      - euda
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: "bitnami/kafka:latest"
+    networks:
+      - euda
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
+    depends_on:
+      - zookeeper
+
+  accountservice:
+    image: "navuitag/account-service:latest"
+    networks:
+      - euda
+    ports:
+      - "9080:9080"
+
+  statisticservice:
+    image: "navuitag/statistic-service:latest"
+    networks:
+      - euda
+    ports:
+      - "9082:9082"
+
+  notificationservice:
+    image: "navuitag/notification-service:latest"
+    networks:
+      - euda
+    ports:
+      - "9083:9083"

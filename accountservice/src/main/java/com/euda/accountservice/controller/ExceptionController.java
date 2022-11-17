@@ -25,12 +25,7 @@ public class ExceptionController {
     public Map<String, String> conflictData(Exception ex) {
         logger.info(ex.getMessage());
 
-        Map<String, String> response = new HashMap<>();
-        response.put("code", "409");
-        response.put("message", "Something went wrong");
-        response.put("error", "Conflict data");
-
-        return response;
+        return responseMessage("409", "Conflict data", "");
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
@@ -38,25 +33,15 @@ public class ExceptionController {
     public Map<String, String> methodNotSupportedException(Exception ex) {
         logger.info(ex.getMessage());
 
-        Map<String, String> response = new HashMap<>();
-        response.put("code", "405");
-        response.put("message", "Something went wrong");
-        response.put("error", "Method not allow");
-
-        return response;
+        return responseMessage("405", "Method not allow.", "");
     }
 
-    @ExceptionHandler({HttpMessageNotReadableException.class, MethodArgumentNotValidException.class})
+    @ExceptionHandler({ HttpMessageNotReadableException.class, MethodArgumentNotValidException.class })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> badRequestHandler(Exception ex) {
         logger.info(ex.getMessage());
 
-        Map<String, String> response = new HashMap<>();
-        response.put("code", "400");
-        response.put("message", "Something went wrong");
-        response.put("error", "Params are wrong types");
-
-        return response;
+        return responseMessage("400", "Params are wrong types.", "");
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
@@ -64,10 +49,14 @@ public class ExceptionController {
     public Map<String, String> resourceNotFound(Exception ex) {
         logger.info(ex.getMessage());
 
+        return responseMessage("404", "Not Found.", "");
+    }
+
+    private Map<String, String> responseMessage(String code, String error, String message) {
         Map<String, String> response = new HashMap<>();
-        response.put("code", "404");
-        response.put("message", "Something went wrong");
-        response.put("error", "Not Found");
+        response.put("code", code);
+        response.put("message", message.equals("") ? message : "Something went wrong");
+        response.put("error", error);
 
         return response;
     }
